@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jess.secondarymarket.dao.GoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.jess.secondarymarket.model.Goods" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="tags_id" property="tagsId" jdbcType="INTEGER" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="goods_price" property="goodsPrice" jdbcType="DECIMAL" />
+    <result column="goods_num" property="goodsNum" jdbcType="INTEGER" />
+    <result column="goods_level" property="goodsLevel" jdbcType="VARCHAR" />
+    <result column="goods_due" property="goodsDue" jdbcType="VARCHAR" />
+    <result column="goods_read" property="goodsRead" jdbcType="BIGINT" />
+    <result column="goods_like" property="goodsLike" jdbcType="BIGINT" />
+    <result column="goods_status" property="goodsStatus" jdbcType="INTEGER" />
+    <result column="goods_comment" property="goodsComment" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="VARCHAR" />
+    <result column="goods_intro" property="goodsIntro" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from goods
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jess.secondarymarket.model.Goods" >
+    insert into goods (id, user_id, tags_id, 
+      goods_name, goods_price, goods_num, 
+      goods_level, goods_due, goods_read, 
+      goods_like, goods_status, goods_comment, 
+      create_time, update_time, goods_intro
+      )
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=INTEGER}, #{tagsId,jdbcType=INTEGER}, 
+      #{goodsName,jdbcType=VARCHAR}, #{goodsPrice,jdbcType=DECIMAL}, #{goodsNum,jdbcType=INTEGER}, 
+      #{goodsLevel,jdbcType=VARCHAR}, #{goodsDue,jdbcType=VARCHAR}, #{goodsRead,jdbcType=BIGINT}, 
+      #{goodsLike,jdbcType=BIGINT}, #{goodsStatus,jdbcType=INTEGER}, #{goodsComment,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}, #{goodsIntro,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.jess.secondarymarket.model.Goods" >
+    update goods
+    set user_id = #{userId,jdbcType=INTEGER},
+      tags_id = #{tagsId,jdbcType=INTEGER},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_price = #{goodsPrice,jdbcType=DECIMAL},
+      goods_num = #{goodsNum,jdbcType=INTEGER},
+      goods_level = #{goodsLevel,jdbcType=VARCHAR},
+      goods_due = #{goodsDue,jdbcType=VARCHAR},
+      goods_read = #{goodsRead,jdbcType=BIGINT},
+      goods_like = #{goodsLike,jdbcType=BIGINT},
+      goods_status = #{goodsStatus,jdbcType=INTEGER},
+      goods_comment = #{goodsComment,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=VARCHAR},
+      goods_intro = #{goodsIntro,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, user_id, tags_id, goods_name, goods_price, goods_num, goods_level, goods_due, 
+    goods_read, goods_like, goods_status, goods_comment, create_time, update_time, goods_intro
+    from goods
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, user_id, tags_id, goods_name, goods_price, goods_num, goods_level, goods_due, 
+    goods_read, goods_like, goods_status, goods_comment, create_time, update_time, goods_intro
+    from goods
+  </select>
+</mapper>
