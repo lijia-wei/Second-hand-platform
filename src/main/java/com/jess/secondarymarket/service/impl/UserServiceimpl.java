@@ -166,8 +166,8 @@ public class UserServiceimpl implements UserService {
 /*        String jsonContent = "{\"number\":\"" + redisUtil.get(phoneNumber) + "\"}";
         Map<String, String> paramMap = new HashMap<>();
         paramMap.put("phoneNumber", phoneNumber);
-        paramMap.put("msgSign", "Jessblogs");
-        paramMap.put("templateCode", "\n" + "SMS_198672298");
+        paramMap.put("msgSign", "*******");
+        paramMap.put("templateCode", "\n" + "*******");
         paramMap.put("jsonContent", jsonContent);
         SendSmsResponse sendSmsResponse = AliyunMessageUtil.sendSms(paramMap);
         if(!(sendSmsResponse.getCode() != null && sendSmsResponse.getCode().equals("OK"))) {
