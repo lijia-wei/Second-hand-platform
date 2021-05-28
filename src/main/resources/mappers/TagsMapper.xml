@@ -31,4 +31,9 @@
     select id, tags_name, tags_msg
     from tags
   </select>
+    <select id="selectByTagName" resultType="com.jess.secondarymarket.model.Tags">
+      select id,tags_msg
+    from tags
+    where tags_name = #{tagName,jdbcType=VARCHAR}
+    </select>
 </mapper>

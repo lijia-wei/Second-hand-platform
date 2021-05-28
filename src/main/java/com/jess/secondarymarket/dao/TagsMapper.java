@@ -16,4 +16,6 @@ public interface TagsMapper {
     List<Tags> selectAll();
 
     int updateByPrimaryKey(Tags record);
+
+    Tags selectByTagName(String tagName);
 }
