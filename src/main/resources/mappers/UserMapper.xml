@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jess.secondarymarket.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.jess.secondarymarket.model.User" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_phone" property="userPhone" jdbcType="VARCHAR" />
+    <result column="user_pwd" property="userPwd" jdbcType="VARCHAR" />
+    <result column="user_num" property="userNum" jdbcType="BIGINT" />
+    <result column="user_role" property="userRole" jdbcType="INTEGER" />
+    <result column="user_image" property="userImage" jdbcType="VARCHAR" />
+    <result column="user_credit" property="userCredit" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from m_user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jess.secondarymarket.model.User" >
+    insert into m_user (id, user_name, user_phone, 
+      user_pwd, user_num, user_role, 
+      user_image, user_credit)
+    values (#{id,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR}, 
+      #{userPwd,jdbcType=VARCHAR}, #{userNum,jdbcType=BIGINT}, #{userRole,jdbcType=INTEGER}, 
+      #{userImage,jdbcType=VARCHAR}, #{userCredit,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.jess.secondarymarket.model.User" >
+    update m_user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      user_phone = #{userPhone,jdbcType=VARCHAR},
+      user_pwd = #{userPwd,jdbcType=VARCHAR},
+      user_num = #{userNum,jdbcType=BIGINT},
+      user_role = #{userRole,jdbcType=INTEGER},
+      user_image = #{userImage,jdbcType=VARCHAR},
+      user_credit = #{userCredit,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, user_name, user_phone, user_pwd, user_num, user_role, user_image, user_credit
+    from m_user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, user_name, user_phone, user_pwd, user_num, user_role, user_image, user_credit
+    from m_user
+  </select>
+  <select id="getUserByPhone" resultType="com.jess.secondarymarket.model.User">
+   select id,user_phone, `user_pwd`, `user_role`, user_name,user_image,user_num,user_credit
+    from m_user
+    where user_phone=#{phoneNumber}
+  </select>
+  <select id="selectByPhoneNum" resultType="com.jess.secondarymarket.vo.UserVO">
+  select id, user_phone,user_name, user_image,user_num,user_credit
+    from m_user
+    where user_phone=#{phoneNumber}
+  </select>
+</mapper>

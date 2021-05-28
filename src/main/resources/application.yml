@@ -1,0 +1,48 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/flea_market?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=CONVERT_TO_NULL
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+
+      initial-size: 5
+      min-idle: 5
+      max-active: 50
+
+      max-wait: 60000
+
+      time-between-eviction-runs-millis: 60000
+
+      min-evictable-idle-time-millis: 300000
+
+
+mybatis:
+  mapper-locations: classpath:mappers/*.xml
+  type-aliases-package: com.jess.secondarymarket.model
+  configuration:
+    map-underscore-to-camel-case: true
+    use-generated-keys: true
+
+
+redis:
+  host: 127.0.0.1
+  port: 6379
+  #超时时间
+  timeout: 10
+  #最大连接数
+  poolMaxTotal: 1000
+  #最大空闲连接数
+  poolMaxIdle: 500
+  #最大等待时间
+  poolMaxWait: 500
+
+jwt:
+  secret: market
+  expiration: 1296000
+  tokenStart: "Bearer "
+  tokenName: Authorization
+  defaultPassword: "123456"

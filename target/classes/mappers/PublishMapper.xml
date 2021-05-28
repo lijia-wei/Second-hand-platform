@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jess.secondarymarket.dao.PublishMapper" >
+  <resultMap id="BaseResultMap" type="com.jess.secondarymarket.model.Publish" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user _id" property="userId" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from publish
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jess.secondarymarket.model.Publish" >
+    insert into publish (id, `user _id`, goods_id, 
+      create_time)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{goodsId,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.jess.secondarymarket.model.Publish" >
+    update publish
+    set `user _id` = #{userId,jdbcType=INTEGER},
+      goods_id = #{goodsId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, `user _id`, goods_id, create_time
+    from publish
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, `user _id`, goods_id, create_time
+    from publish
+  </select>
+    <select id="selectByUserId" resultType="com.jess.secondarymarket.model.Publish">
+    select id, goods_id, create_time
+    from publish
+    where id = #{id,jdbcType=INTEGER}
+    </select>
+</mapper>

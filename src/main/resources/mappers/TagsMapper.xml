@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jess.secondarymarket.dao.TagsMapper" >
+  <resultMap id="BaseResultMap" type="com.jess.secondarymarket.model.Tags" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="tags_name" property="tagsName" jdbcType="VARCHAR" />
+    <result column="tags_msg" property="tagsMsg" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tags
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jess.secondarymarket.model.Tags" >
+    insert into tags (id, tags_name, tags_msg
+      )
+    values (#{id,jdbcType=INTEGER}, #{tagsName,jdbcType=VARCHAR}, #{tagsMsg,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.jess.secondarymarket.model.Tags" >
+    update tags
+    set tags_name = #{tagsName,jdbcType=VARCHAR},
+      tags_msg = #{tagsMsg,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, tags_name, tags_msg
+    from tags
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, tags_name, tags_msg
+    from tags
+  </select>
+    <select id="selectByTagName" resultType="com.jess.secondarymarket.model.Tags">
+      select id,tags_msg
+    from tags
+    where tags_name = #{tagName,jdbcType=VARCHAR}
+    </select>
+</mapper>
