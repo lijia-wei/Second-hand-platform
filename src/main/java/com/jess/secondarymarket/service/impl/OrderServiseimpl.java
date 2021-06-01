@@ -2,21 +2,28 @@ package com.jess.secondarymarket.service.impl;
 
 import com.jess.secondarymarket.dao.GoodsMapper;
 import com.jess.secondarymarket.dao.OrderMapper;
+import com.jess.secondarymarket.dao.UserMapper;
 import com.jess.secondarymarket.enums.ResultEnum;
 import com.jess.secondarymarket.forms.CreateOrderForm;
+import com.jess.secondarymarket.forms.SelectOrderForm;
+import com.jess.secondarymarket.forms.UserOrderForm;
 import com.jess.secondarymarket.model.Goods;
 import com.jess.secondarymarket.model.Order;
 import com.jess.secondarymarket.model.User;
 import com.jess.secondarymarket.service.OrderServise;
 import com.jess.secondarymarket.service.UserService;
 import com.jess.secondarymarket.util.ResultVOUtil;
+import com.jess.secondarymarket.vo.GoodsInfoVO;
 import com.jess.secondarymarket.vo.ResultVO;
+import com.jess.secondarymarket.vo.SelectOrderVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @program: secondarymarket
@@ -35,6 +42,9 @@ public class OrderServiseimpl implements OrderServise {
 
     @Autowired
     private GoodsMapper goodsMapper;
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public ResultVO createOrder(CreateOrderForm createOrderForm) {
@@ -81,5 +91,35 @@ public class OrderServiseimpl implements OrderServise {
             orderMapper.deleteByPrimaryKey(orderId);
             return ResultVOUtil.success();
         }
+    }
+
+    @Override
+    public ResultVO selectOrder() {
+        User user = userService.getCurrentUser();
+        if(user == null ){
+            return ResultVOUtil.error(ResultEnum.USER_NOT_LOGIN);
+        }
+        List<UserOrderForm> orderList = orderMapper.selectByUserId(user.getId());
+        if(orderList == null)
+        {
+            return ResultVOUtil.error(ResultEnum.ORDER_NOT_EXIST);
+        }
+
+        List<SelectOrderVO> selectOrderVOList = new ArrayList<>();
+
+        for (UserOrderForm order:orderList) {
+            User user1 = userMapper.selectByPrimaryKey((long)order.getSellerId());//卖家
+            GoodsInfoVO goods = goodsMapper.selectByGoodsId(order.getGoodId());
+            SelectOrderVO selectOrderVO = new SelectOrderVO();
+            selectOrderVO.setUserName(user1.getUserName());
+            selectOrderVO.setUserCredit(user1.getUserCredit());
+            selectOrderVO.setGoodsLevel(goods.getGoodsLevel());
+            selectOrderVO.setGoodsDue(goods.getGoodsDue());
+            selectOrderVO.setGoodsPrice(goods.getGoodsPrice());
+            selectOrderVO.setGoodsName(goods.getGoodsName());
+            selectOrderVOList.add(selectOrderVO);
+        }
+
+        return ResultVOUtil.success(selectOrderVOList);
     }
 }

@@ -16,7 +16,7 @@ public interface OrderServise {
     ResultVO deleteOrder(int orderId);
 
     /**
-     * 用户查看订单
+     * 用户查看自己申请的订单
      */
     ResultVO selectOrder();
 }

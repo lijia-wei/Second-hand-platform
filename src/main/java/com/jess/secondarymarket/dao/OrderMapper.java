@@ -1,5 +1,6 @@
 package com.jess.secondarymarket.dao;
 
+import com.jess.secondarymarket.forms.UserOrderForm;
 import com.jess.secondarymarket.model.Order;
 import org.springframework.stereotype.Repository;
 
@@ -16,4 +17,6 @@ public interface OrderMapper {
     List<Order> selectAll();
 
     int updateByPrimaryKey(Order record);
+
+    List<UserOrderForm> selectByUserId(Long id);
 }

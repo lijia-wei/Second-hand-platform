@@ -42,4 +42,11 @@ public class OrderController {
     public ResultVO deleteOrder(int orderId){
         return orderServise.deleteOrder(orderId);
     }
+
+    @ApiOperation("查看用户全部订单")
+    @PostMapping(name = "查看用户全部订单", value = "/selectOrder")
+    @RoleContro(role = RoleEnum.USER)
+    public ResultVO selectOrder(){
+        return orderServise.selectOrder();
+    }
 }
