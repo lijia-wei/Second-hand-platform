@@ -33,4 +33,9 @@
     select id, `user _id`, goods_id, create_time
     from publish
   </select>
+    <select id="selectByUserId" resultType="com.jess.secondarymarket.model.Publish">
+    select id, goods_id, create_time
+    from publish
+    where id = #{id,jdbcType=INTEGER}
+    </select>
 </mapper>

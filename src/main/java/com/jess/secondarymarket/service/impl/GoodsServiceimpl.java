@@ -3,12 +3,11 @@ package com.jess.secondarymarket.service.impl;
 import com.jess.secondarymarket.dao.CommentMapper;
 import com.jess.secondarymarket.dao.GoodsMapper;
 import com.jess.secondarymarket.dao.PublishMapper;
+import com.jess.secondarymarket.dao.TagsMapper;
 import com.jess.secondarymarket.enums.ResultEnum;
 import com.jess.secondarymarket.forms.CreateGoodForm;
 import com.jess.secondarymarket.forms.UpdateGoodForm;
 import com.jess.secondarymarket.model.Goods;
-import com.jess.secondarymarket.model.Publish;
-import com.jess.secondarymarket.model.User;
 import com.jess.secondarymarket.service.GoodsService;
 import com.jess.secondarymarket.service.UserService;
 import com.jess.secondarymarket.util.ResultVOUtil;
@@ -42,18 +41,21 @@ public class GoodsServiceimpl implements GoodsService {
 
     @Autowired
     private PublishMapper publishMapper;
-    @Override
 
+    @Autowired
+    private TagsMapper tagsMapper;
+
+    @Override
     public ResultVO goodsDetail(Long goodsId) {
         GoodsInfoVO goodsInfoVO = goodsMapper.selectByGoodsId(goodsId);
         if (goodsInfoVO == null) {
-            return ResultVOUtil.error(ResultEnum.ARTICLE_NOT_EXIST);
+            return ResultVOUtil.error(ResultEnum.GOODS_NOT_EXIST);
         }
 
         //阅读量+1
         Goods goods = goodsMapper.selectByPrimaryKey(goodsId);
         if(goods == null){
-            return ResultVOUtil.error(ResultEnum.ARTICLE_NOT_EXIST);
+            return ResultVOUtil.error(ResultEnum.GOODS_NOT_EXIST);
         }else{
             goods.setGoodsRead(goods.getGoodsRead() + 1);
             goodsMapper.updateByPrimaryKey(goods);
@@ -84,7 +86,7 @@ public class GoodsServiceimpl implements GoodsService {
     public ResultVO updateGoods(UpdateGoodForm updateGoodForm) {
         Goods goods = goodsMapper.selectByPrimaryKey(updateGoodForm.getId());
         if(goods == null){
-            return ResultVOUtil.error(ResultEnum.ARTICLE_NOT_EXIST);
+            return ResultVOUtil.error(ResultEnum.GOODS_NOT_EXIST);
         }
         BeanUtils.copyProperties(updateGoodForm, goods);
         Date date = new Date();
@@ -96,4 +98,12 @@ public class GoodsServiceimpl implements GoodsService {
         return ResultVOUtil.error(ResultEnum.SERVER_ERROR);
     }
 
+    @Override
+    public ResultVO getAllGoodsByTag(int tagId) {
+        if(tagsMapper.selectByPrimaryKey(tagId) == null){
+            return ResultVOUtil.error(ResultEnum.TAG_NOT_EXIST);
+        }
+        List<Goods> goodsList = goodsMapper.selectByTagsId(tagId);
+        return ResultVOUtil.success(goodsList);
+    }
 }

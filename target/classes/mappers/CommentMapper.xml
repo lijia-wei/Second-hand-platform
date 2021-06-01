@@ -5,30 +5,37 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="goods_id" property="goodsId" jdbcType="BIGINT" />
+    <result column="com_msg" property="comMsg" jdbcType="VARCHAR" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from comment
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.jess.secondarymarket.model.Comment" >
-    insert into comment (id, user_id, goods_id
-      )
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{goodsId,jdbcType=BIGINT}
-      )
+    insert into comment (id, user_id, goods_id, 
+      com_msg)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{goodsId,jdbcType=BIGINT}, 
+      #{comMsg,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.jess.secondarymarket.model.Comment" >
     update comment
     set user_id = #{userId,jdbcType=INTEGER},
-      goods_id = #{goodsId,jdbcType=BIGINT}
+      goods_id = #{goodsId,jdbcType=BIGINT},
+      com_msg = #{comMsg,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select id, user_id, goods_id
+    select id, user_id, goods_id, com_msg
     from comment
     where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select id, user_id, goods_id
+    select id, user_id, goods_id, com_msg
     from comment
   </select>
+    <select id="selectGoodsByCommentId" resultType="com.jess.secondarymarket.model.Goods">
+       select id, goods_id
+    from comment
+     where goods_id = #{id,jdbcType=INTEGER}
+    </select>
 </mapper>

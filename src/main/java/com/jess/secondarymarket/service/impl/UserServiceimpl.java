@@ -2,11 +2,15 @@ package com.jess.secondarymarket.service.impl;
 
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
+import com.jess.secondarymarket.dao.GoodsMapper;
+import com.jess.secondarymarket.dao.PublishMapper;
 import com.jess.secondarymarket.dao.UserMapper;
 import com.jess.secondarymarket.enums.ResultEnum;
 import com.jess.secondarymarket.forms.LoginForm;
 import com.jess.secondarymarket.forms.ModifyPasswordForm;
 import com.jess.secondarymarket.forms.UserRegisterForm;
+import com.jess.secondarymarket.model.Goods;
+import com.jess.secondarymarket.model.Publish;
 import com.jess.secondarymarket.model.User;
 import com.jess.secondarymarket.security.JwtProperties;
 import com.jess.secondarymarket.security.JwtUserDetailServiceImpl;
@@ -15,7 +19,9 @@ import com.jess.secondarymarket.util.AliyunMessageUtil;
 import com.jess.secondarymarket.util.JwtTokenUtil;
 import com.jess.secondarymarket.util.RedisUtil;
 import com.jess.secondarymarket.util.ResultVOUtil;
+import com.jess.secondarymarket.vo.GoodsInfoVO;
 import com.jess.secondarymarket.vo.ResultVO;
+import com.jess.secondarymarket.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,13 +36,14 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.jess.secondarymarket.util.AliyunMessageUtil.sendSms;
 
 /**
  * @program: secondarymarket
- * @description: 用户登录注册管理
+ * @description: 用户信息管理
  * @author: Jess
  * @create: 2021-05-27 07:44
  **/
@@ -66,6 +73,12 @@ public class UserServiceimpl implements UserService {
     @Autowired
     private RedisUtil redisUtil;
 
+    @Autowired
+    private PublishMapper publishMapper;
+
+    @Autowired
+    private GoodsMapper goodsMapper;
+
     @Override
     public boolean insert(User user) {
         return false;
@@ -78,6 +91,7 @@ public class UserServiceimpl implements UserService {
 
     @Override
     public User selectByUserId(Long userId) {
+
         return null;
     }
 
@@ -208,4 +222,24 @@ public class UserServiceimpl implements UserService {
         }
         return ResultVOUtil.error(ResultEnum.SERVER_ERROR);
     }
+
+    @Override
+    public ResultVO getOwnerMsg() {
+        User user = getCurrentUser();
+        UserVO result = userMapper.selectByPhoneNum(user.getUserPhone());
+        if (result != null) {
+            return ResultVOUtil.success(result);
+        }
+        return ResultVOUtil.error(ResultEnum.SERVER_ERROR);
+    }
+
+    @Override
+    public ResultVO getPulishMsg() {
+        User user = getCurrentUser();
+        List<GoodsInfoVO> goodsInfoVOList = goodsMapper.selectByUserId(user.getId());
+        return ResultVOUtil.success(goodsInfoVOList);
+    }
+
 }
+
+

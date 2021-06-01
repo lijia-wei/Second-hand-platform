@@ -22,7 +22,6 @@ public class ServiceLog {
 
     @Pointcut("execution(public * com.jess.secondarymarket.service.*.*(..))")
     public void service() {
-
     }
 
 

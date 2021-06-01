@@ -24,8 +24,8 @@ public interface GoodsService {
 
 
     /**
-     * 收藏商品
+     * 查看指定标签下的所有商品
      */
-
+    ResultVO getAllGoodsByTag(int tagId);
 
 }

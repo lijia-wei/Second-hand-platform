@@ -1,6 +1,7 @@
 package com.jess.secondarymarket.dao;
 
 import com.jess.secondarymarket.model.Goods;
+import com.jess.secondarymarket.vo.GoodsInfoVO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,4 +17,12 @@ public interface GoodsMapper {
     List<Goods> selectAll();
 
     int updateByPrimaryKey(Goods record);
+
+    GoodsInfoVO selectByGoodsId(Long id);
+
+
+    List<GoodsInfoVO> selectByUserId(Long id);
+
+    List<Goods>  selectByTagsId(int id);
+
 }

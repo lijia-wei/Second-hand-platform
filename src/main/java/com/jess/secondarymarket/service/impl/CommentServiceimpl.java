@@ -46,7 +46,7 @@ public class CommentServiceimpl implements CommentService {
         }
         Comment comment = new Comment();
         BeanUtils.copyProperties(form,comment);
-        comment.setUserId(user.getId());
+        comment.setUserId(user.getId().intValue());
         if(commentMapper.insert(comment) == 1) {
             return ResultVOUtil.success(comment);
         }

@@ -56,4 +56,15 @@ public interface UserService {
      * 修改密码
      */
     ResultVO updatePassword(ModifyPasswordForm modifyPasswordForm);
+
+    /**
+     * 查看个人信息
+     */
+    ResultVO getOwnerMsg();
+
+    /**
+     * 查看个人所发商品
+     */
+    ResultVO getPulishMsg();
+
 }

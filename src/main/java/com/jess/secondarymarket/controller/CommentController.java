@@ -35,7 +35,7 @@ public class CommentController {
 
     @ApiOperation("删除评论")
     @PostMapping(name = "删除评论",value = "/delete")
-    public Object creatComment(Long id) {
+    public Object creatComment(int id) {
         return commentService.deleteComment(id);
     }
 }

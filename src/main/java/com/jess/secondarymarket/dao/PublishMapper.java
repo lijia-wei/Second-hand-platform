@@ -16,4 +16,6 @@ public interface PublishMapper {
     List<Publish> selectAll();
 
     int updateByPrimaryKey(Publish record);
+
+    List<Publish> selectByUserId();
 }
