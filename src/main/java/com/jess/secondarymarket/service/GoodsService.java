@@ -22,6 +22,11 @@ public interface GoodsService {
      */
     ResultVO updateGoods(UpdateGoodForm updateGoodForm);
 
+    /**
+     * 删除指定商品
+     */
+    ResultVO deleteGoods(Long goodsId);
+
 
     /**
      * 查看指定标签下的所有商品

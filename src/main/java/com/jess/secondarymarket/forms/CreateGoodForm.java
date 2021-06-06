@@ -15,10 +15,6 @@ import java.math.BigDecimal;
 @Data
 public class CreateGoodForm {
 
-    @NotNull(message = "发布者不能为空")
-    @ApiModelProperty("发布者id")
-    private Integer userId;
-
     @NotNull(message = "标签不能为空")
     @ApiModelProperty("标签id")
     private Integer tagsId;

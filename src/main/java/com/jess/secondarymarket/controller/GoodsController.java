@@ -51,6 +51,12 @@ public class GoodsController {
         return goodsService.goodsDetail(goodsId);
     }
 
+    @ApiOperation("删除指定商品")
+    @PostMapping(name = "删除指定商品", value = "/deleteGoods")
+    public ResultVO deleteGoods(Long goodsId){
+        return goodsService.deleteGoods(goodsId);
+    }
+
     @ApiOperation("查看指定标签下的所有商品")
     @PostMapping(name = "查看指定标签下的所有商品", value = "/getAllGoodsByTag")
     public ResultVO getAllGoodsByTag(@RequestParam int tagId){

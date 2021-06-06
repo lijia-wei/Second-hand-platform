@@ -19,10 +19,6 @@ public class UpdateGoodForm {
     @ApiModelProperty("商品id")
     private Long id;
 
-    @NotNull(message = "发布者不能为空")
-    @ApiModelProperty("发布者id")
-    private Integer userId;
-
     @NotNull(message = "商品详情不能为空")
     @ApiModelProperty("商品详情")
     private String goodsIntro;
