@@ -30,5 +30,8 @@ export default {
 </script>
 
 <style>
-
+#app {
+  background-color: beige;
+  height: 100%;
+}
 </style>
