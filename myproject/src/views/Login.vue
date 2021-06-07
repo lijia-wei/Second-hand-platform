@@ -11,15 +11,15 @@
         </div>
       </div>
     </el-header>
-    <el-main>
+    <!-- <el-main>
       <div class="wrapper">
         <div class="title">ACCOUNT LOGIN</div>
-        <el-form :label-position="labelPosition" label-width="80px" :model="formLabelAlign">
+        <el-form :label-position="labelPosition" label-width="80px" :model="formLabelLogin">
           <el-form-item label="手机号">
-            <el-input v-model="formLabelAlign.phonenumber"></el-input>
+            <el-input v-model="formLabelLogin.phonenumber"></el-input>
           </el-form-item>
           <el-form-item label="密码">
-            <el-input v-model="formLabelAlign.password"></el-input>
+            <el-input v-model="formLabelLogin.password"></el-input>
           </el-form-item>
         </el-form>
 
@@ -30,7 +30,39 @@
         </div>
        
       </div>
+    </el-main> -->
+
+    <!-- 注册 -->
+    <el-main>
+      <div class="wrapper">
+        <div class="title">ACCOUNT REGISTER</div>
+        <el-form :label-position="labelPosition" label-width="80px" :model="formLabelRegister">
+          <el-form-item label="用户名">
+            <el-input v-model="formLabelRegister.userName"></el-input>
+          </el-form-item>
+          <el-form-item label="学号">
+            <el-input v-model="formLabelRegister.userNum"></el-input>
+          </el-form-item>
+          <el-form-item label="手机号">
+            <el-input v-model="formLabelRegister.userPhone"></el-input>
+          </el-form-item>
+          <el-form-item label="密码">
+            <el-input v-model="formLabelRegister.userPwd"></el-input>
+          </el-form-item>
+          <el-form-item label="验证码">
+            <el-input v-model="formLabelRegister.verifyCode"></el-input>
+          </el-form-item>
+        </el-form>
+
+        <div class="btn">
+          <span class="second"><a href="#">直接登录</a></span>
+          <el-button type="danger" @click="login">取消</el-button>
+          <el-button type="danger" @click="login">登录</el-button>
+        </div>
+       
+      </div>
     </el-main>
+
     <myfooter></myfooter>
     
   </div>
@@ -43,9 +75,16 @@ export default {
   data() {
     return {
         labelPosition: 'right',
-        formLabelAlign: {
+        formLabelLogin: {
           phonenumber: '15182918600',
           password: '123456',
+        },
+        formLabelRegister: {
+          userName: '',
+          userNum: '',
+          userPhone: '',
+          userPwd: '',
+          verifyCode: '',
         }
     }
   },
@@ -83,7 +122,7 @@ export default {
 
 <style>
 body {
-  overflow:hidden;
+  /* overflow:hidden; */
 }
 .login {
   display: flex;
