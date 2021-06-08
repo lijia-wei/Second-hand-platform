@@ -34,32 +34,32 @@ public class GoodsController {
     @ApiOperation("新增商品")
     @PostMapping(name = "新增商品", value = "/insertGoods")
     @RoleContro(role = RoleEnum.USER)
-    public ResultVO insertGoods(@Valid CreateGoodForm creatGoodForm){
+    public ResultVO insertGoods(@Valid @RequestBody CreateGoodForm creatGoodForm){
         return goodsService.insertGoods(creatGoodForm);
     }
 
     @ApiOperation("修改商品")
     @PostMapping(name = "修改商品", value = "/updateGoods")
     @RoleContro(role = RoleEnum.USER)
-    public ResultVO updateGoods(@Valid UpdateGoodForm updateGoodForm){
+    public ResultVO updateGoods(@Valid @RequestBody UpdateGoodForm updateGoodForm){
         return goodsService.updateGoods(updateGoodForm);
     }
 
     @ApiOperation("查看商品详情")
     @PostMapping(name = "查看商品详情", value = "/goodsDetail")
-    public ResultVO goodsDetail(@RequestParam Long goodsId){
+    public ResultVO goodsDetail(@RequestParam @RequestBody Long goodsId){
         return goodsService.goodsDetail(goodsId);
     }
 
     @ApiOperation("删除指定商品")
     @PostMapping(name = "删除指定商品", value = "/deleteGoods")
-    public ResultVO deleteGoods(Long goodsId){
+    public ResultVO deleteGoods(@RequestBody Long goodsId){
         return goodsService.deleteGoods(goodsId);
     }
 
     @ApiOperation("查看指定标签下的所有商品")
     @PostMapping(name = "查看指定标签下的所有商品", value = "/getAllGoodsByTag")
-    public ResultVO getAllGoodsByTag(@RequestParam int tagId){
+    public ResultVO getAllGoodsByTag(@RequestParam @RequestBody int tagId){
         return goodsService.getAllGoodsByTag(tagId);
     }
 }

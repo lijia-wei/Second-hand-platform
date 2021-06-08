@@ -226,6 +226,9 @@ public class UserServiceimpl implements UserService {
     @Override
     public ResultVO getOwnerMsg() {
         User user = getCurrentUser();
+        if (user == null) {
+            return ResultVOUtil.error(ResultEnum.USER_NOT_LOGIN);
+        }
         UserVO result = userMapper.selectByPhoneNum(user.getUserPhone());
         if (result != null) {
             return ResultVOUtil.success(result);
@@ -236,8 +239,30 @@ public class UserServiceimpl implements UserService {
     @Override
     public ResultVO getPulishMsg() {
         User user = getCurrentUser();
+        if (user == null) {
+            return ResultVOUtil.error(ResultEnum.USER_NOT_LOGIN);
+        }
         List<GoodsInfoVO> goodsInfoVOList = goodsMapper.selectByUserId(user.getId());
         return ResultVOUtil.success(goodsInfoVOList);
+    }
+
+    @Override
+    public ResultVO insertAdmin(long userId) {
+        User user = getCurrentUser();
+        if (user == null) {
+            return ResultVOUtil.error(ResultEnum.USER_NOT_LOGIN);
+        }
+        if(user.getUserRole() == 1){
+            return ResultVOUtil.error(ResultEnum.PERMISSION_DENNY);
+        }
+
+        User user1 = userMapper.selectByPrimaryKey(userId);
+        if(user1 == null){
+            return ResultVOUtil.error(ResultEnum.USER_NOT_EXIST);
+        }
+        user1.setUserRole(2);
+        userMapper.updateByPrimaryKey(user1);
+        return ResultVOUtil.success();
     }
 
 }

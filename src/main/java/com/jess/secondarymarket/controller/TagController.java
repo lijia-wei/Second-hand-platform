@@ -27,14 +27,14 @@ public class TagController {
     @ApiOperation("添加标签")
     @PostMapping(name = "添加标签", value = "/insertTag")
     @RoleContro(role = RoleEnum.ADMIN)
-    public Object insertTags(InsertTagsForm form) {
+    public Object insertTags(@RequestBody InsertTagsForm form) {
         return tagService.insertTags(form);
     }
 
     @ApiOperation("删除标签")
     @GetMapping(name = "删除标签",value = "/deleteTags")
     @RoleContro(role = RoleEnum.ADMIN)
-    public Object deleteTags(Integer id) {
+    public Object deleteTags(@RequestBody Integer id) {
         return tagService.deleteTags(id);
     }
 

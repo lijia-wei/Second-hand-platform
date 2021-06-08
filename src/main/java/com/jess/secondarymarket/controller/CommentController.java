@@ -6,10 +6,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @program: secondarymarket
@@ -29,13 +26,13 @@ public class CommentController {
 
     @ApiOperation("评论文章")
     @PostMapping(name = "评论某篇文章",value = "/insert")
-    public Object creatComment(InsertCommentForm form) {
+    public Object creatComment(@RequestBody InsertCommentForm form) {
         return commentService.insertComment(form);
     }
 
     @ApiOperation("删除评论")
     @PostMapping(name = "删除评论",value = "/delete")
-    public Object creatComment(int id) {
+    public Object creatComment(@RequestBody int id) {
         return commentService.deleteComment(id);
     }
 }

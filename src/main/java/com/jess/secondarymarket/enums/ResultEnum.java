@@ -27,7 +27,6 @@ public enum ResultEnum {
     TAG_NOT_INSERT(15,"标签添加失败"),
     TAG_NOT_EXIST(16,"标签不存在"),
     COMMENT_NOT_EXIST(17,"评论不存在"),
-
     AUTHENTICATION_ERROR(401, "用户认证失败,请重新登录"),
     PERMISSION_DENNY(403, "权限不足"),
     NOT_FOUND(404, "url错误,请求路径未找到"),

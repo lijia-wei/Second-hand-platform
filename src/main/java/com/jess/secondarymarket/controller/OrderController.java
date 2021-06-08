@@ -8,10 +8,7 @@ import com.jess.secondarymarket.vo.ResultVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @program: secondarymarket
@@ -31,7 +28,7 @@ public class OrderController {
     @ApiOperation("创建订单")
     @PostMapping(name = "创建订单", value = "/createOrder")
     @RoleContro(role = RoleEnum.USER)
-    public ResultVO createOrder(CreateOrderForm createOrderForm){
+    public ResultVO createOrder(@RequestBody CreateOrderForm createOrderForm){
         return orderServise.createOrder(createOrderForm);
     }
 
@@ -39,7 +36,7 @@ public class OrderController {
     @ApiOperation("删除订单")
     @PostMapping(name = "删除订单", value = "/deleteOrder")
     @RoleContro(role = RoleEnum.USER)
-    public ResultVO deleteOrder(int orderId){
+    public ResultVO deleteOrder(@RequestBody int orderId){
         return orderServise.deleteOrder(orderId);
     }
 

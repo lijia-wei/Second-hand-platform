@@ -1,5 +1,7 @@
 package com.jess.secondarymarket.controller;
 
+import com.jess.secondarymarket.accessctro.RoleContro;
+import com.jess.secondarymarket.enums.RoleEnum;
 import com.jess.secondarymarket.forms.ModifyPasswordForm;
 import com.jess.secondarymarket.service.UserService;
 import com.jess.secondarymarket.vo.ResultVO;
@@ -24,7 +26,7 @@ public class UserController {
 
     @ApiOperation("修改密码")
     @PostMapping(name = "用户修改密码", value = "/updatePassword")
-    public Object updatePassword(ModifyPasswordForm modifyPasswordForm) {
+    public Object updatePassword(@RequestBody ModifyPasswordForm modifyPasswordForm) {
         return userService.updatePassword(modifyPasswordForm);
     }
 
@@ -38,5 +40,12 @@ public class UserController {
     @GetMapping(name = "查看个人所发商品", value = "/getPulishMsg")
     public ResultVO getPulishMsg() {
         return userService.getPulishMsg();
+    }
+
+    @ApiOperation("管理员：新增管理员用户")
+    @PostMapping(name = "新增管理员用户", value = "/insertAdmin")
+    @RoleContro(role = RoleEnum.ADMIN)
+    public ResultVO insertAdmin(long userId){
+        return  userService.insertAdmin(userId);
     }
 }

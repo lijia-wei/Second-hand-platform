@@ -67,4 +67,9 @@ public interface UserService {
      */
     ResultVO getPulishMsg();
 
+    /**
+     * 新增管理员用户
+     */
+    public ResultVO insertAdmin(long userId);
+
 }
