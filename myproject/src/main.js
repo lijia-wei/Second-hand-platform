@@ -9,6 +9,8 @@ import './assets/css/normalize.css';
 import './plugin/element-ui';
 import ElementUI from 'element-ui';
 import 'font-awesome/css/font-awesome.min.css';
+import '@/assets/css/main5152.css'
+import '@/assets/css/responsive5152.css'
 
 //引入让vue能使用axios不能携带cookie
 axios.defaults.withCredentials = true;    

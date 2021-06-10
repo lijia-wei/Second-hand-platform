@@ -11,7 +11,8 @@
         </div>
       </div>
     </el-header>
-    <!-- <el-main>
+    <!-- 登录 -->
+    <el-main>
       <div class="wrapper">
         <div class="title">ACCOUNT LOGIN</div>
         <el-form :label-position="labelPosition" label-width="80px" :model="formLabelLogin">
@@ -24,13 +25,13 @@
         </el-form>
 
         <div class="btn">
-          <span class="one"><a href="#">我要注册</a></span>|
-          <span class="second"><a href="#">忘记密码</a></span>
+          <span class="one">我要注册</span>|
+          <span class="second">忘记密码</span>
           <el-button type="danger" @click="login">登录</el-button>
         </div>
        
       </div>
-    </el-main> -->
+    </el-main>
 
     <!-- 注册 -->
     <el-main>
@@ -55,9 +56,9 @@
         </el-form>
 
         <div class="btn">
-          <span class="second"><a href="#">直接登录</a></span>
+          <span class="second">直接登录</span>
           <el-button type="danger" @click="login">取消</el-button>
-          <el-button type="danger" @click="login">登录</el-button>
+          <el-button type="danger" @click="login">注册</el-button>
         </div>
        
       </div>
@@ -123,6 +124,7 @@ export default {
 <style>
 body {
   /* overflow:hidden; */
+  background-color: beige;
 }
 .login {
   display: flex;
@@ -213,7 +215,7 @@ vertical-align: top;
 .el-main .wrapper .second {
   margin-right: 2em;
 }
-.el-main .wrapper .one a, .el-main .wrapper .second a{
+.el-main .wrapper .one, .el-main .wrapper .second{
   font-size: 14px;
   color: white;
 }

@@ -2,7 +2,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-// import index from '../views/index'
+import index from '../views/Index'
 import login from '../views/Login'
 // import register from '../views/Register'
 // import about from '../views/Aboutus'
@@ -13,7 +13,7 @@ Vue.use(VueRouter)
 
 //3.创建VueRouter对象
 const routes = [
-  { path: '/', component: login, meta:{title: '登录'} },
+  { path: '/', component: index, meta:{title: '首页'} },
   // { path: '/', component: index, meta:{title: '首页'}}, 
   // { path: '/register', component: register, meta:{title: '注册'} },
   
