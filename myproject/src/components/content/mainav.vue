@@ -5,7 +5,7 @@
           <!-- Logo set -->
           <div class="logo-container">
             <!-- Website Logo -->
-            <span style="font-size: 35px;color: white;">跳蚤校园</span>
+            <span style="font-size: 32px;color: white;">跳蚤校园</span>
             <span class="tag-line">校园二手平台</span>
           </div>
           <!-- Start of Main Navigation -->
@@ -15,20 +15,14 @@
                 <router-link to="/" tag="li" exact-active-class="current-menu-item">
                   <a>首页</a>
                 </router-link>
-                <router-link to="/myquestions" v-if="islogin" tag="li" exact-active-class="current-menu-item">
-                  <a>我的提问</a>
+                <router-link to="/myquestions" tag="li" exact-active-class="current-menu-item">
+                  <a>发布商品</a>
                 </router-link>
-                <router-link to="/login" v-else tag="li" exact-active-class="current-menu-item">
-                  <a>我的提问</a>
-                </router-link>
-                <router-link to="/setting" v-if="islogin" tag="li" exact-active-class="current-menu-item">
-                  <a>个人中心</a>
-                </router-link>
-                <router-link to="/login" v-else tag="li" exact-active-class="current-menu-item">
+                <router-link to="/setting" tag="li" exact-active-class="current-menu-item">
                   <a>个人中心</a>
                 </router-link>
                 <router-link to="/about" tag="li" exact-active-class="current-menu-item">
-                  <a>关于我们</a>
+                  <a>个人中心</a>
                 </router-link>
 
                 <li v-if="!islogin">
@@ -92,9 +86,9 @@ export default {
     logout() {
       //注销
       this.$axios({
-        url: "/user/cancel",
-        method: "POST",
-        headers: {'Content-Type': 'application/json;charset=UTF-8'},
+        // url: "/user/cancel",
+        // method: "POST",
+        // headers: {'Content-Type': 'application/json;charset=UTF-8'},
       }).then(res => {
         if (res.data.state == 200) { 
         this.DELETE_USERINFO();
@@ -105,27 +99,27 @@ export default {
       });
        
     },
-     changeHref(sortnum) {
-      switch (sortnum) {
-        case 1:
-          this.$router.push({ path: "/" });
-          break;
-        case 2:
-          this.$router.push({ path: "/myquestions" });
-          break;
-        case 3:
-          this.$router.push({ path: "/setting" });
-          break;
-        case 4:
-          this.$router.push({ path: "/about" });
-          break;
-        case 5:
-          this.$router.push({ path: "/login" });
-          break;
-        case 6:
-          break;
-      }
-    },
+    //  changeHref(sortnum) {
+    //   switch (sortnum) {
+    //     case 1:
+    //       this.$router.push({ path: "/" });
+    //       break;
+    //     case 2:
+    //       this.$router.push({ path: "/myquestions" });
+    //       break;
+    //     case 3:
+    //       this.$router.push({ path: "/setting" });
+    //       break;
+    //     case 4:
+    //       this.$router.push({ path: "/about" });
+    //       break;
+    //     case 5:
+    //       this.$router.push({ path: "/login" });
+    //       break;
+    //     case 6:
+    //       break;
+    //   }
+    // },
   }
 }
 </script>

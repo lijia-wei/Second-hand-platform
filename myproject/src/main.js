@@ -12,15 +12,15 @@ import 'font-awesome/css/font-awesome.min.css';
 import '@/assets/css/main5152.css'
 import '@/assets/css/responsive5152.css'
 
-//引入让vue能使用axios不能携带cookie
-axios.defaults.withCredentials = true;    
-
+//引入让vue能使用,axios不能携带cookie
+// axios.defaults.withCredentials = true;    
+ 
 Vue.use(Vuex)  
 
 // aiox需要的包
 import axios from 'axios'
 //aciox基础url
-axios.defaults.baseURL = 'http://192.168.1.113:8080/api';
+// axios.defaults.baseURL = 'http://192.168.1.113:8080';
 //将axios写成vue的原型属性
 Vue.prototype.$axios = axios;
 //为post请求设置默认请求头

@@ -3,6 +3,7 @@ const state = {
     isclose: JSON.parse(sessionStorage.getItem("isclose")) || true,
     //先去localStorage中获取数据
     userInfo: JSON.parse(sessionStorage.getItem("userInfo")) || {},
+    userAllInfo: JSON.parse(sessionStorage.getItem("userAllInfo")) || {},
 }
 const getters = {
     //放state相关计算属性
@@ -13,6 +14,10 @@ const mutations = {
     setUserInfo(state, userinfo) {
         sessionStorage.setItem('userInfo', JSON.stringify(userinfo));//将传递的数据先保存到localStorage中
 		state.userInfo = userinfo;                                 // 之后才是修改state中的状态
+    },
+    setUserAllInfo(state, userinfo) {
+        sessionStorage.setItem('userAllInfo', JSON.stringify(userinfo));//将传递的数据先保存到localStorage中
+		state.userAllInfo = userinfo;                                 // 之后才是修改state中的状态
     },
     ISLOG(state) {
         state.islogin = !state.islogin;
@@ -25,6 +30,7 @@ const mutations = {
     },
     DELETE_USERINFO(state) {
         window.sessionStorage.removeItem('userInfo');
+        window.sessionStorage.removeItem('userAllInfo');
         mutations.CLOSE(state);
         mutations.ISLOG(state);
         location. reload();

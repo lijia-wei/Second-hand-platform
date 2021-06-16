@@ -37,7 +37,7 @@ module.exports = {
       loaderOptions: {}, // Enable CSS modules for all css / pre-processor files. // This option does not affect *.vue files.
 
       modules: false
-  }
+  },
 }
 
 const webpack = require('webpack')

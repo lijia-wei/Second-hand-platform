@@ -12,7 +12,7 @@
       </div>
     </el-header>
     <!-- 登录 -->
-    <el-main>
+    <el-main v-if="!isregist">
       <div class="wrapper">
         <div class="title">ACCOUNT LOGIN</div>
         <el-form :label-position="labelPosition" label-width="80px" :model="formLabelLogin">
@@ -25,8 +25,7 @@
         </el-form>
 
         <div class="btn">
-          <span class="one">我要注册</span>|
-          <span class="second">忘记密码</span>
+          <span class="second" @click="wantregi">我要注册</span>
           <el-button type="danger" @click="login">登录</el-button>
         </div>
        
@@ -34,7 +33,7 @@
     </el-main>
 
     <!-- 注册 -->
-    <el-main>
+    <el-main v-if="isregist">
       <div class="wrapper">
         <div class="title">ACCOUNT REGISTER</div>
         <el-form :label-position="labelPosition" label-width="80px" :model="formLabelRegister">
@@ -51,14 +50,14 @@
             <el-input v-model="formLabelRegister.userPwd"></el-input>
           </el-form-item>
           <el-form-item label="验证码">
-            <el-input v-model="formLabelRegister.verifyCode"></el-input>
+            <el-input v-model="formLabelRegister.verifyCode" style="width:60%; margin-left:-13px"></el-input>
+            <span class="sendver" @click="sendVerify">{{ timecount }}</span>
           </el-form-item>
         </el-form>
 
         <div class="btn">
-          <span class="second">直接登录</span>
-          <el-button type="danger" @click="login">取消</el-button>
-          <el-button type="danger" @click="login">注册</el-button>
+          <span class="second" @click="directlog">有账号直接登录</span>
+          <el-button type="danger" @click="registered">注册</el-button>
         </div>
        
       </div>
@@ -70,7 +69,8 @@
 </template>
 
 <script>
-import myfooter from "../components/content/footer.vue"
+import myfooter from "../components/content/foot.vue"
+import { mapState, mapMutations } from "vuex";
 export default {
   name: "Login",
   data() {
@@ -86,45 +86,160 @@ export default {
           userPhone: '',
           userPwd: '',
           verifyCode: '',
-        }
+        },
+        verification: "",
+        time: 60,
+        timecount: "发送验证码",
+        isregist: false,
     }
+  },
+  // 辅助函数也一样，获取模块中的state值
+  computed: {
+    ...mapState({
+      isclose: (state) => state.user.isclose,
+      islogin: (state) => state.user.islogin,
+    }),
   },
   components: {
     myfooter
   },
   methods: {
+     ...mapMutations("user", ["setUserInfo", "ISLOG", "CLOSE"]),
+    //登录
     login(){
       var param = {
-        userPhone: this.formLabelAlign.phonenumber,
-        userPwd: this.formLabelAlign.password
+        userPhone: this.formLabelLogin.phonenumber,
+        userPwd: this.formLabelLogin.password
       }
       this.$axios({
-          url: "/anon/login",
+          url: "http://192.168.1.144:8080/api/anon/login",
           method: "POST",
           data: JSON.stringify(param),
         })
           .then((res) => {
-            let data = res.data;
-            if (res.data.state == 200) {
-              
+            if (res.data.msg == "成功") {
+              this.$message.success("登录成功！");
+              console.log(res.data.data);
+              this.setUserInfo(res.data.data);
+              this.ISLOG();
+              this.CLOSE();
+
+              //获取用户具体信息
+              this.$axios({
+                url: "http://192.168.1.144:8080/api/user/getOwnerMsg",
+                method: "POST",
+                data: this.$store.state.user.userInfo.token,
+              }).then((res) => {
+                if (res.data.msg == "成功") {
+                  this.setUserAllInfo(res.data.data);
+                }
+              }).catch((e) => {
+                  this.$message(e);
+              });
+
+              //跳转主页
+              this.$router.replace({
+                path: "/",
+              });
             }
           })
           .catch((e) => {
-            
+            this.$message(e);
           });
-       }//else{
-      //   this.$message.error("请输入邮箱！");
-      // }
-    }
-  
-  
+      },
+      wantregi() {
+        this.isregist = true;
+      },
+      directlog(){
+        this.isregist = false;
+      },
+
+    //验证码倒计时
+    countDown() {
+      var time = 60;
+      const datathis = this;
+      function ti() {
+        var t = setInterval(function () {
+          time--;
+          datathis.timecount = time + "秒后重新发送";
+          if (time == 0) {
+            clearTimeout(t);
+            datathis.timecount = "发送验证码";
+            time = 60;
+          }
+        }, 1000);
+      }
+      ti(datathis);
+    },
+    sendVerify() {
+      //发送验证码
+      console.log("ok");
+      if (this.formLabelRegister.userPhone != "") {
+        this.$axios({
+          url: "http://192.168.1.118:8080/api/anon/getCode",
+          method: "POST",
+          data: JSON.stringify(this.formLabelRegister.userPhone),
+        })
+          .then((res) => {
+            if (res.data.msg == "成功") {
+              this.$message.success("发送成功，请稍等！");
+              this.countDown();
+            } else {
+              this.$message.error("发送异常！");
+            }
+          })
+          .catch((e) => {
+            this.$message.error(e);
+          });
+      }
+      else {
+        this.$message.error("请输入手机号！");
+      }
+    },
+
+    //注册
+    registered() {
+      if (!userReg.test(this.formLabelRegister.userName)) {
+        this.$message.error("账号为6-10位字母数字字母");
+        return;
+      }
+      if (!pwdReg.test(this.formLabelRegister.userPwd)) {
+        this.$message.error("密码为6-18位字母数字或下划线 字母开头");
+        return;
+      }
+      let obj = {
+        userName: this.formLabelRegister.userName,
+        userNum: this.formLabelRegister.userNum,
+        userPhone: this.formLabelRegister.userPhone,
+        userPwd: this.formLabelRegister.userPwd,
+        verifyCode: this.formLabelRegister.verifyCode
+      };
+      this.$axios({
+        url: "http://192.168.1.118:8080/api/anon/insertUser" + obj.verifyCode,
+        method: "POST",
+        data: JSON.stringify(obj),
+      })
+        .then((res) => {
+          let data = res.data.data;
+          alert(data);
+          if (res.data.msg == "成功") {
+            this.$message.success("注册成功请登录！");
+            this.$router.push({ path: "/login" });
+          } else if (res.data.state == 400) {
+            this.$message.error("用户名已存在或验证码错误！");
+          }
+        })
+        .catch((e) => {
+          this.$message.error(e);
+        });
+    },
+  }
 };
 </script>
 
 <style>
 body {
   /* overflow:hidden; */
-  background-color: beige;
 }
 .login {
   display: flex;
@@ -221,5 +336,13 @@ vertical-align: top;
 }
 .el-main .wrapper .btn {
   margin-left: 2em;
+}
+.sendver {
+  background-color: azure;
+  color: black;
+  border: none;
+  font-size: 13px;
+  padding: 3px;
+  margin-left: 10px;
 }
 </style>

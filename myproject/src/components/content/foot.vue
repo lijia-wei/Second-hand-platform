@@ -27,7 +27,7 @@ export default {
   letter-spacing: 1px;
 }
 .footer .small_title{
-  margin-bottom: 10px;
+  
   line-height: 15px;
   font-size: 12px;
   letter-spacing: 1px;
