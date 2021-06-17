@@ -34,7 +34,7 @@ public class TagController {
     @ApiOperation("删除标签")
     @GetMapping(name = "删除标签",value = "/deleteTags")
     @RoleContro(role = RoleEnum.ADMIN)
-    public Object deleteTags(@RequestBody Integer id) {
+    public Object deleteTags( Integer id) {
         return tagService.deleteTags(id);
     }
 

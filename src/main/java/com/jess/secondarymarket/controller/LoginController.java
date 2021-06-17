@@ -25,7 +25,7 @@ import javax.validation.Valid;
 @RequestMapping("/api/anon")
 @Slf4j
 @Api(tags = "登录注册")
-@CrossOrigin(origins = "*",maxAge = 3600)
+@CrossOrigin()
 public class LoginController {
     @Autowired
     private UserService userService;

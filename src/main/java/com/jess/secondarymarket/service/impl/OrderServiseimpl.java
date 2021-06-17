@@ -111,13 +111,17 @@ public class OrderServiseimpl implements OrderServise {
             User user1 = userMapper.selectByPrimaryKey((long)order.getSellerId());//卖家
             GoodsInfoVO goods = goodsMapper.selectByGoodsId(order.getGoodId());
             SelectOrderVO selectOrderVO = new SelectOrderVO();
+            selectOrderVO.setGoodId(order.getGoodId());
             selectOrderVO.setUserName(user1.getUserName());
+            selectOrderVO.setUserPhone(user1.getUserPhone());
             selectOrderVO.setUserCredit(user1.getUserCredit());
             selectOrderVO.setGoodsLevel(goods.getGoodsLevel());
             selectOrderVO.setGoodsDue(goods.getGoodsDue());
             selectOrderVO.setGoodsPrice(goods.getGoodsPrice());
             selectOrderVO.setGoodsName(goods.getGoodsName());
-            selectOrderVOList.add(selectOrderVO);
+            if(user.getId().intValue() == order.getOrderId()){
+                selectOrderVOList.add(selectOrderVO);
+            }
         }
 
         return ResultVOUtil.success(selectOrderVOList);

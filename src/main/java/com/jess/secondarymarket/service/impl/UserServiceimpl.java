@@ -200,7 +200,7 @@ public class UserServiceimpl implements UserService {
         //return ResultVOUtil.error(ResultEnum.PHONE_CODE_SEND_ERROR);
        return ResultVOUtil.success();*/
 
-        SendSmsResponse response =sendSms(phoneNumber,(String) redisUtil.get(phoneNumber));
+        //SendSmsResponse response =sendSms(phoneNumber,(String) redisUtil.get(phoneNumber));
         return ResultVOUtil.success();
     }
 

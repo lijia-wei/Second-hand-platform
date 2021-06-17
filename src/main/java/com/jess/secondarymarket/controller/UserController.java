@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/user")
 @Api(tags = "用户相关操作")
-@CrossOrigin
+@CrossOrigin()
 public class UserController {
     @Autowired
     private UserService userService;

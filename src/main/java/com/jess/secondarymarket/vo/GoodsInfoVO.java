@@ -12,6 +12,7 @@ import java.math.BigDecimal;
  **/
 @Data
 public class GoodsInfoVO {
+    private Long id;//商品
 
     private String goodsName;
 

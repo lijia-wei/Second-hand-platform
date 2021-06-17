@@ -36,7 +36,7 @@ public class OrderController {
     @ApiOperation("删除订单")
     @PostMapping(name = "删除订单", value = "/deleteOrder")
     @RoleContro(role = RoleEnum.USER)
-    public ResultVO deleteOrder(@RequestBody int orderId){
+    public ResultVO deleteOrder( int orderId){
         return orderServise.deleteOrder(orderId);
     }
 

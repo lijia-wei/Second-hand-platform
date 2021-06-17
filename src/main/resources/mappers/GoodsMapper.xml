@@ -72,13 +72,13 @@
     WHERE id = #{id}
   </select>
   <select id="selectByUserId" resultType="com.jess.secondarymarket.vo.GoodsInfoVO">
-    select  tags_id, goods_name, goods_price, goods_num, goods_level, goods_due,
+    select  id,tags_id, goods_name, goods_price, goods_num, goods_level, goods_due,
     goods_read, goods_like, goods_status, goods_comment, create_time, update_time, goods_intro
     from goods
     WHERE user_id = #{id}
   </select>
     <select id="selectByTagsId" resultType="com.jess.secondarymarket.model.Goods">
-        select  user_id, goods_name, goods_price, goods_num, goods_level, goods_due,
+        select  id,user_id, goods_name, goods_price, goods_num, goods_level, goods_due,
     goods_read, goods_like, goods_status, goods_comment, create_time, update_time, goods_intro
     from goods
     WHERE tags_id = #{id}

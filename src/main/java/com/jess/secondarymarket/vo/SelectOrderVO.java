@@ -18,9 +18,16 @@ public class SelectOrderVO {
      */
     private String userName;
 
+    /**
+     * 商品id
+     */
+    private Long goodId;
+
     private Integer userCredit;
 
     private String goodsName;
+
+    private String userPhone;
 
     private BigDecimal goodsPrice;
 

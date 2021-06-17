@@ -36,7 +36,7 @@
     from m_order
   </select>
   <select id="selectByUserId" resultType="com.jess.secondarymarket.forms.UserOrderForm">
-    select  seller_id, good_id, create_time
+    select  seller_id, good_id, create_time ,order_id
     from m_order
     where order_id = #{id,jdbcType=INTEGER}
   </select>

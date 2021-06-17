@@ -18,6 +18,10 @@ public class UserOrderForm {
     @ApiModelProperty("卖家id")
     private Integer sellerId;
 
+    @NotNull(message = "买家id不能为空")
+    @ApiModelProperty("买家id")
+    private Integer orderId;
+
     @NotNull(message = "商品id不能为空")
     @ApiModelProperty("商品id")
     private Long goodId;
