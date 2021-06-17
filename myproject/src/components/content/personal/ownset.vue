@@ -20,7 +20,7 @@
           v-model="new3"
           maxlength="10"
           minlength="6"
-          placeholder="新密码：6-10位数字、字母组合"
+          placeholder="新密码"
           v-if="showpass"
         />
         <input
@@ -53,7 +53,7 @@ export default {
       let params = {
         newPassword: this.new2,
         oldPassword: this.new3,
-        username: this.phone
+        userPhone: this.phone
       }
       this.$axios({
         url: "http://192.168.1.144:8080/api/user/updatePassword",
@@ -62,8 +62,6 @@ export default {
       }).then((res) => {
           let data = res.data.data.data;  
           if(res.data.state == 200){
-            this.$store.state.user.userInfo.password = this.new3;
-            sessionStorage.getItem("userInfo");
             location. reload();
             this.$message.success("修改成功！");
           }else{
@@ -95,6 +93,7 @@ export default {
   }
   .ownset li{
     display: block;
+    margin: 1em;
   }
   .change{
     margin-bottom: 1em;
@@ -103,8 +102,8 @@ export default {
     display: inline;
   }
   .change a {
-    font-size: 12px;
-    margin-left: 3em;
+    font-size: 14px;
+    margin-left: 1em;
   }
   .change input{
     margin-left: 2em;
@@ -113,8 +112,10 @@ export default {
     color: rgb(99, 6, 250);
   }
   .change button {
-    font-size: 14px;
+    font-size: 15px;
     margin-left: 1em;
     margin-bottom: 1em;
+    border: none;
+    background-color: rgb(250, 147, 13);
   }
 </style>

@@ -28,6 +28,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 
 Vue.config.productionTip = false;
 
+
 //JSON格式时间转换为标准格式时间
 import moment from 'moment/moment';
 Vue.prototype.$moment = moment;

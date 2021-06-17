@@ -77,8 +77,8 @@ export default {
     return {
         labelPosition: 'right',
         formLabelLogin: {
-          phonenumber: '15182918600',
-          password: '123456',
+          phonenumber: '',
+          password: '',
         },
         formLabelRegister: {
           userName: '',
@@ -104,7 +104,7 @@ export default {
     myfooter
   },
   methods: {
-     ...mapMutations("user", ["setUserInfo", "ISLOG", "CLOSE"]),
+     ...mapMutations("user", ["setUserInfo", "setUserAllInfo", "ISLOG", "CLOSE"]),
     //登录
     login(){
       var param = {
@@ -119,18 +119,16 @@ export default {
           .then((res) => {
             if (res.data.msg == "成功") {
               this.$message.success("登录成功！");
-              console.log(res.data.data);
               this.setUserInfo(res.data.data);
               this.ISLOG();
               this.CLOSE();
-
               //获取用户具体信息
               this.$axios({
                 url: "http://192.168.1.144:8080/api/user/getOwnerMsg",
-                method: "POST",
-                data: this.$store.state.user.userInfo.token,
+                method: "GET",
+                headers: {"Authorization": this.$store.state.user.userInfo.token},
               }).then((res) => {
-                if (res.data.msg == "成功") {
+                if (res.data.msg == "成功") { 
                   this.setUserAllInfo(res.data.data);
                 }
               }).catch((e) => {
@@ -173,17 +171,16 @@ export default {
     },
     sendVerify() {
       //发送验证码
-      console.log("ok");
       if (this.formLabelRegister.userPhone != "") {
         this.$axios({
-          url: "http://192.168.1.118:8080/api/anon/getCode",
+          url: "http://192.168.1.144:8080/api/anon/getCode?phoneNumber=" + this.formLabelRegister.userPhone,
           method: "POST",
           data: JSON.stringify(this.formLabelRegister.userPhone),
         })
           .then((res) => {
             if (res.data.msg == "成功") {
               this.$message.success("发送成功，请稍等！");
-              this.countDown();
+              // this.countDown();
             } else {
               this.$message.error("发送异常！");
             }
@@ -199,14 +196,6 @@ export default {
 
     //注册
     registered() {
-      if (!userReg.test(this.formLabelRegister.userName)) {
-        this.$message.error("账号为6-10位字母数字字母");
-        return;
-      }
-      if (!pwdReg.test(this.formLabelRegister.userPwd)) {
-        this.$message.error("密码为6-18位字母数字或下划线 字母开头");
-        return;
-      }
       let obj = {
         userName: this.formLabelRegister.userName,
         userNum: this.formLabelRegister.userNum,

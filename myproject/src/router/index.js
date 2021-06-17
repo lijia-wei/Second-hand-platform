@@ -4,8 +4,7 @@ import VueRouter from 'vue-router'
 
 import index from '../views/Index'
 import login from '../views/Login'
-// import register from '../views/Register'
-// import about from '../views/Aboutus'
+import postGood from '../views/postGood'
 import setting from '../views/personalCenter/Personalset'
 //2.通过Vue.use()安装插件
 Vue.use(VueRouter)
@@ -15,11 +14,7 @@ const routes = [
   { path: '/', component: index, meta:{title: '首页'} },
   { path: '/login', component: login, meta:{title: '登录'}}, 
   { path: '/setting', component: setting, meta:{title: '个人中心'} },
-  // { path: '/register', component: register, meta:{title: '注册'} },
-  
-  // { path: '/myquestions', component: myquestions, meta:{title: '我的提问'} },
-  
-  // { path: '/about', component: about, meta:{title: '关于我们'} },
+  { path: '/postGood', component: postGood, meta:{title: '发布商品'} },
 ]
 
 const router = new VueRouter({

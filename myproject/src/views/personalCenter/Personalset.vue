@@ -10,14 +10,12 @@
             <div class="block">
               <span
                 class="el-avatar el-avatar--circle"
-                :style="[{ backgroundImage: 'url(' + headsrc + ')' }]"
-                
+                :style="[{ backgroundImage: 'url(' + headsrc + ')' }]"  
               >
               <!-- v-loading="loading" -->
                 <input
                   type="file"
                   accept="image/gif,image/jpeg,image/jpg,image/png"
-                  @change="changehead"
                 />
               </span>
             </div>
@@ -29,39 +27,37 @@
     <!-- Main Content -->
     <div class="main">
       <el-tabs :tab-position="tabPosition">
-        <el-tab-pane label="信息设置"> 
-          信息设置 
+        <el-tab-pane label="个人信息"> 
+          个人信息
           <ownset />
         </el-tab-pane>
 
-        <el-tab-pane label="我的关注">
-          我的关注
-          <caredperson :type="2" />
+        <el-tab-pane label="我的发布">
+          <mygoods />
         </el-tab-pane>
 
-        <el-tab-pane label="粉丝"
-          >粉丝
-          <caredperson :type="1" />
+        <el-tab-pane label="我的订单">
+          <ownorder />
         </el-tab-pane>
 
-        <el-tab-pane label="我的收藏"
-          >我的收藏
-          <collection :url="requesturl" :which="1" />
+        <el-tab-pane label="标签管理" v-if="this.$store.state.user.userInfo.username=='罗慧颖'">
+          <tagset />
         </el-tab-pane>
       </el-tabs>
     </div>
 
-       <!-- start of foot -->
-    <!--     <foot/> -->
+    <!-- start of foot -->
+    <!-- <foot/> -->
   </div>
 </template>
 
 <script>
 import mainav from '@/components/content/mainav';
 import myfooter from "@/components/content/indexfoot";
-// import caredperson from "@/components/content/personal/caredperson";
-// import collection from "@/components/content/personal/collection";
+import mygoods from "@/components/content/personal/owngoods";
+import ownorder from "@/components/content/personal/ownorder";
 import ownset from "@/components/content/personal/ownset";
+import tagset from "@/components/content/personal/tagSet";
 
 export default {
   name: "setting",
@@ -77,40 +73,12 @@ export default {
     myfooter,
     mainav,
     ownset,
-    // caredperson,
-    // collection,
+    mygoods,
+    ownorder,
+    tagset
   },
   methods: {
-    changehead(e) {
-      let file = e.target.files[0];
-      console.log(file);
-      let param = new FormData(); // 创建form对象
-      param.append("file", file, file.name); // 通过append向form对象添加数据
-
-      this.$axios({
-        url: "headPicture/change?uId=" + this.$store.state.user.userInfo.id,
-        method: "POST",
-        data: param,
-      }).then((res) => {
-        if (res.data.state == 200) {
-          this.gethead();
-        }
-      });
-    },
-
-    gethead() {
-      this.loading = true;
-      this.$axios({
-        url:
-          "/headPicture/getHeadPicture/" + this.$store.state.user.userInfo.id,
-        method: "POST",
-      }).then((res) => {
-        if (res.data.state == 200) {
-          this.headsrc = res.data.data.data;
-          this.loading = false;
-        }
-      });
-    },
+    
     // outback() {
     //   //跳转主页
     //   this.$router.replace({
@@ -119,7 +87,7 @@ export default {
     // }
   },
   created() {
-    this.gethead();
+    
     if(!this.$store.state.user.islogin){
       // this.outback();
     }
