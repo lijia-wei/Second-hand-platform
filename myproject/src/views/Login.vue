@@ -179,8 +179,7 @@ export default {
         })
           .then((res) => {
             if (res.data.msg == "成功") {
-              this.$message.success("发送成功，请稍等！");
-              // this.countDown();
+              this.$message.success("发送成功，请稍等！")
             } else {
               this.$message.error("发送异常！");
             }
@@ -204,13 +203,12 @@ export default {
         verifyCode: this.formLabelRegister.verifyCode
       };
       this.$axios({
-        url: "http://192.168.1.118:8080/api/anon/insertUser" + obj.verifyCode,
+        url: "http://192.168.1.144:8080/api/anon/insertUser",
         method: "POST",
         data: JSON.stringify(obj),
       })
         .then((res) => {
           let data = res.data.data;
-          alert(data);
           if (res.data.msg == "成功") {
             this.$message.success("注册成功请登录！");
             this.$router.push({ path: "/login" });
